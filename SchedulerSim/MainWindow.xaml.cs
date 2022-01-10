@@ -569,16 +569,16 @@ namespace SchedulerSim
             List<List<int>> sorted = FCFS(l);//arivaltime 0, burst time 1, id is 3
             List<List<int>> results = new List<List<int>>();
             for (int i = 0; i < IDList.Count; i++)
-                TBT += sorted[i][1];
+                TBT += sorted[i][1] + sorted[i][0];
 
             for (int i = 0; i < TBT; i += 1)
             {
                 fa = true;
-                time = 0;
+
                 for (int j = 0; j < sorted.Count; j++)
                 {
 
-                    if (time <= i)
+                    if (sorted[j][0] <= i)
                     {
                         if (sorted[j][1] / 5 != 0)
                         {
@@ -608,7 +608,7 @@ namespace SchedulerSim
                         break;
                     }
 
-                    time += sorted[j][0];
+
                 }
 
 
@@ -620,22 +620,22 @@ namespace SchedulerSim
         private List<List<int>> SRT(List<List<int>> l)
         {
 
-            int time;
+
             int TBT = 0;
             int min;
             int minID = 0;
             List<List<int>> sorted = FCFS(l);//arivaltime 0, burst time 1, id is 3
             List<List<int>> results = new List<List<int>>();
             for (int i = 0; i < IDList.Count; i++)
-                TBT += sorted[i][1];
-            for (int i = 0; i < TBT + 1; i += 1)
+                TBT += sorted[i][1] + sorted[i][0];
+            for (int i = 0; i < TBT; i += 1)
             {
-                time = 0;
+
                 min = -1;
                 minID = 0;
                 for (int j = 0; j < sorted.Count; j++)
                 {
-                    if (time <= i)
+                    if (sorted[j][0] <= i)
                     {
                         if ((sorted[j][1] < min && sorted[j][1] > 0) || (min == -1 && sorted[j][1] > 0))
                         {
@@ -649,7 +649,7 @@ namespace SchedulerSim
                     }
 
 
-                    time += sorted[j][0];
+                    
                 }
                 if (min > 0)
                 {
